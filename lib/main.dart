@@ -12,7 +12,12 @@ void main() {
 void main() {
   runApp(
     const MaterialApp(
-      home: Scaffold(body: RoundedBoxWidget()),
+      home: Scaffold(
+          body: RoundedBoxWidget(
+        firstText: "***",
+        secondText:
+            "Jelo moze sadrzati susam i riblje brasno u tragovima koje se deklarise kao alergen!",
+      )),
     ),
   );
 }
