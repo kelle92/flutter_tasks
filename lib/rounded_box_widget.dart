@@ -36,6 +36,7 @@ class RoundedBoxWidget extends StatelessWidget {
               text: firstText,
               style: TextStyle(color: firstTxtColor),
               children: <TextSpan>[
+                const TextSpan(text: " "),
                 TextSpan(
                     text: secondText, style: TextStyle(color: secondTxtColor))
               ]),

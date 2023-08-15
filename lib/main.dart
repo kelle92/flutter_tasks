@@ -16,7 +16,7 @@ void main() {
           body: RoundedBoxWidget(
         firstText: "***",
         secondText:
-            "Jelo moze sadrzati susam i riblje brasno u tragovima koje se deklarise kao alergen!",
+            "Jelo može sadržati susam i riblje brašno u tragovima koje se deklariše kao alergen!!!",
       )),
     ),
   );
