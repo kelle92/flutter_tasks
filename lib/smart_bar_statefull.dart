@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -39,11 +38,11 @@ class SmartScrollBar extends StatefulWidget {
 
   @override
   State<SmartScrollBar> createState() {
-    return _SmartScrollBarV2State();
+    return _SmartScrollBarState();
   }
 }
 
-class _SmartScrollBarV2State extends State<SmartScrollBar> {
+class _SmartScrollBarState extends State<SmartScrollBar> {
 //Index
 
   late List groupIndexList;
@@ -83,7 +82,7 @@ class _SmartScrollBarV2State extends State<SmartScrollBar> {
   @override
   void initState() {
     super.initState();
-    // Geting index of group in focus
+
     itemListener.itemPositions.addListener(() {
       groupIndexList = itemListener.itemPositions.value
           .where((item) {
@@ -108,9 +107,6 @@ class _SmartScrollBarV2State extends State<SmartScrollBar> {
           }
         }
       }
-
-      // print(visibleGroupIndex);
-      //scrollToGroup(visibleGroupIndex);
     });
   }
 
@@ -157,6 +153,7 @@ class _SmartScrollBarV2State extends State<SmartScrollBar> {
                         ))),
                   ),
                   onTap: () => {
+                    scrollToGroup(index),
                     setGroupIndex(index),
                     scrollToItem(),
                     setIsClicked(true)
