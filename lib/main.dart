@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_tasks/rounded_box_widget.dart';
-import 'package:flutter_tasks/smart_bar_statefull.dart';
+import 'package:flutter_tasks/smart_scroll_bar.dart';
 
 void main() {
   runApp(

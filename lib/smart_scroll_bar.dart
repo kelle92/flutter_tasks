@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -43,28 +42,25 @@ class SmartScrollBar extends StatefulWidget {
 }
 
 class _SmartScrollBarState extends State<SmartScrollBar> {
-//Index
-
   late List groupIndexList;
   late int visibleGroupIndex = 0;
   late int clickedGroupIndex = 0;
   late bool isClicked = false;
 
 //Controllers
-  final itemController = ItemScrollController();
-  final itemListener = ItemPositionsListener.create();
-  final groupController = ItemScrollController();
+  final mealGroupController = ItemScrollController();
+  final mealGroupListener = ItemPositionsListener.create();
+  final groupTabController = ItemScrollController();
 
-//Functions to control scroll
-  Future scrollToItem() async {
-    itemController.scrollTo(
-        index: clickedGroupIndex, duration: const Duration(milliseconds: 300));
-    //alignment: 0.05);
+//Functions
+  void scrollToMealGroup() {
+    mealGroupController.scrollTo(
+        index: clickedGroupIndex, duration: const Duration(milliseconds: 400));
   }
 
-  Future scrollToGroup(index) async {
-    groupController.scrollTo(
-        index: index, duration: const Duration(milliseconds: 300));
+  void scrollToGroupTab(index) {
+    groupTabController.scrollTo(
+        index: index, duration: const Duration(milliseconds: 400));
   }
 
   void setGroupIndex(index) {
@@ -79,17 +75,16 @@ class _SmartScrollBarState extends State<SmartScrollBar> {
     });
   }
 
+//
   @override
   void initState() {
     super.initState();
 
-    itemListener.itemPositions.addListener(() {
-      groupIndexList = itemListener.itemPositions.value
+    mealGroupListener.itemPositions.addListener(() {
+      groupIndexList = mealGroupListener.itemPositions.value
           .where((item) {
             final isTopVisible = item.itemLeadingEdge <= 0;
-            //final isBottomVisible = item.itemTrailingEdge < 0.5;
-
-            return isTopVisible; // || isBottomVisible;
+            return isTopVisible;
           })
           .map((item) => item.index)
           .toList();
@@ -97,11 +92,11 @@ class _SmartScrollBarState extends State<SmartScrollBar> {
       if (visibleGroupIndex != groupIndexList[0]) {
         visibleGroupIndex = groupIndexList[0];
         if (isClicked == false) {
-          scrollToGroup(visibleGroupIndex);
+          scrollToGroupTab(visibleGroupIndex);
           setGroupIndex(visibleGroupIndex);
         } else if (isClicked == true) {
           if (clickedGroupIndex == visibleGroupIndex) {
-            scrollToGroup(visibleGroupIndex);
+            scrollToGroupTab(visibleGroupIndex);
             setGroupIndex(visibleGroupIndex);
             setIsClicked(false);
           }
@@ -120,8 +115,7 @@ class _SmartScrollBarState extends State<SmartScrollBar> {
             height: 90,
             width: double.infinity,
             child: ScrollablePositionedList.builder(
-              //ListView.builder(
-              itemScrollController: groupController,
+              itemScrollController: groupTabController,
               scrollDirection: Axis.horizontal,
               itemCount: _meals.length,
               itemBuilder: (context, index) {
@@ -153,9 +147,9 @@ class _SmartScrollBarState extends State<SmartScrollBar> {
                         ))),
                   ),
                   onTap: () => {
-                    scrollToGroup(index),
+                    scrollToGroupTab(index),
                     setGroupIndex(index),
-                    scrollToItem(),
+                    scrollToMealGroup(),
                     setIsClicked(true)
                   },
                 );
@@ -168,9 +162,8 @@ class _SmartScrollBarState extends State<SmartScrollBar> {
             flex: 5,
             child: ScrollablePositionedList.builder(
               itemCount: _meals.length,
-              itemScrollController: itemController,
-              // New Feature
-              itemPositionsListener: itemListener,
+              itemScrollController: mealGroupController,
+              itemPositionsListener: mealGroupListener,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(20),
