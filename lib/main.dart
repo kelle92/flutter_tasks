@@ -11,7 +11,16 @@ void main() {
       routes: {
         "/": (context) => const HomeScreen(),
         "/languages": (context) => const LanguagesScreen(
-              languageList: ["English", "Espanol", "German"],
+              defaultLanguage: "Espanol",
+              languageList: [
+                "English",
+                "Espanol",
+                "German",
+                "French",
+                "Potruguese",
+                "Serbian",
+                "Croatian",
+              ],
             )
       },
       //home: Scaffold()

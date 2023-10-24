@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -22,47 +21,62 @@ class HomeScreen extends StatelessWidget {
 }
 
 class LanguagesScreen extends StatelessWidget {
-  const LanguagesScreen({super.key, this.languageList});
+  const LanguagesScreen(
+      {super.key,
+      this.languageList = const [],
+      required this.defaultLanguage,
+      this.defaultFunction});
 
-  final languageList;
+  final List languageList;
+  final String defaultLanguage;
+  final void defaultFunction;
 
   @override
   Widget build(context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: const Color(0xFFFB6D3B),
-          title: Row(
-            children: [
-              const Text("Languages",
-                  style: TextStyle(
-                    color: Colors.white,
-                  )),
-              const Spacer(),
-              RichText(
-                  text: TextSpan(
-                      text: "Update",
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          print("Update clicked");
-                        }))
-            ],
-          )),
-      body: Column(children: [
-        Container(
-          child: const Padding(
-            padding: EdgeInsets.all(30),
-            child:
-                // Ovdje mora ici listviewbuilder!!!! za Svaki element
-                Row(
+        appBar: AppBar(
+            backgroundColor: const Color(0xFFFB6D3B),
+            title: Row(
               children: [
-                Text("English"),
-                Spacer(),
-                Text("Checkbox"),
+                const Text("Languages",
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+                const Spacer(),
+                RichText(
+                    text: TextSpan(
+                        text: "Update",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pop(context, "/");
+                          }))
               ],
-            ),
-          ),
-        )
-      ]),
-    );
+            )),
+        body: ListView.builder(
+            padding: const EdgeInsets.all(35),
+            scrollDirection: Axis.vertical,
+            itemCount: languageList.length,
+            itemBuilder: (context, int index) {
+              return Container(
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(width: 1.0, color: Colors.black))),
+                  //height: 70,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25, bottom: 25),
+                    child: Text(
+                      "${languageList[index]}",
+                      style:
+
+                          //Simulacija kako odraditi checkbox pored default jezika
+
+                          languageList[index] == defaultLanguage
+                              ? const TextStyle(
+                                  fontSize: 16, color: Color(0xFFFB6D3B))
+                              : const TextStyle(
+                                  fontSize: 16, color: Colors.black),
+                    ),
+                  ));
+            }));
   }
 }
