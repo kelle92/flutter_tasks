@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,16 +56,18 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                       color: Colors.white,
                     )),
                 const Spacer(),
-                RichText(
-                    text: TextSpan(
-                        text: "Update",
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pop(context, "/");
+                GestureDetector(
+                  child: const Text(
+                    "Update",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context, "/");
 
-                            //Default funkcija koja je proslijeđena kroz kontruktor
-                            widget.defaultFunction;
-                          }))
+                    //Default funkcija koja je proslijeđena kroz kontruktor
+                    widget.defaultFunction;
+                  },
+                )
               ],
             )),
         body: ListView.builder(
