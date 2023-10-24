@@ -76,9 +76,12 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
             itemBuilder: (context, int index) {
               return GestureDetector(
                 child: Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(width: 1.0, color: Colors.black))),
+                  decoration: BoxDecoration(
+                      border: index == widget.languageList.length - 1
+                          ? const Border(bottom: BorderSide.none)
+                          : const Border(
+                              bottom:
+                                  BorderSide(width: 1.0, color: Colors.black))),
                   child: widget.languageList[index] == selectedLanguage
                       ? Row(
                           children: [
