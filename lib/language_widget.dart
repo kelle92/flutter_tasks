@@ -24,11 +24,11 @@ class LanguagesScreen extends StatefulWidget {
       {super.key,
       this.languageList = const [],
       required this.defaultLanguage,
-      this.defaultFunction});
+      this.updateLanguage});
 
   final List languageList;
   final String defaultLanguage;
-  final void defaultFunction;
+  final void updateLanguage;
 
   @override
   State<LanguagesScreen> createState() => _LanguagesScreenState();
@@ -65,7 +65,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                     Navigator.pop(context, "/");
 
                     //Default funkcija koja je proslijeđena kroz kontruktor
-                    widget.defaultFunction;
+                    widget.updateLanguage;
                   },
                 )
               ],
@@ -97,6 +97,14 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                             Checkbox(
                                 value: isChecked,
                                 checkColor: const Color(0xFFFB6D3B),
+                                activeColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(2.0),
+                                ),
+                                side: MaterialStateBorderSide.resolveWith(
+                                  (states) => const BorderSide(
+                                      width: 1.0, color: Color(0xFFFB6D3B)),
+                                ),
                                 onChanged: (value) {
                                   setState(() {});
                                 })
